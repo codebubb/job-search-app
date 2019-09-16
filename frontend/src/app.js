@@ -1,3 +1,5 @@
 import { JobSearch } from './JobSearch';
 
-new JobSearch();
+const jobSearch = new JobSearch('#search-form', '.resultsContainer');
+jobSearch.setCountryCode();
+jobSearch.configureFormListener();
