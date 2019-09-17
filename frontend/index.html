@@ -4,15 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="src/scss/app.scss">
   <title>Job Search</title>
 </head>
 <body>
-  <form id="search-form">
-    <input type="text" id="search">
-    <input type="text" id="location">
-    <button>Search</button>
-  </form>
-  <div class="result-container"></div>
+  <header>
+    <div class="container">
+      <h1>Job Search App</h1>
+      <h2>Find your perfect job today!</h2>
+      <form id="search-form">
+          <input type="text" class="form-control" placeholder="Job Title" id="search">
+          <input type="text" class="form-control" placeholder="Location" id="location">
+          <button class="btn btn-block btn-primary">Search</button>
+        </form>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+
+          <div class="result-container"></div>        
+    </div>
+  </main>
   <script src="src/app.js"></script>
 </body>
 </html>

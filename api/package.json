@@ -2,7 +2,7 @@
   "name": "job-search",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "chalk": "^2.4.2"
   }
 }
