@@ -9,6 +9,5 @@ export const getCurrencySymbol = country => {
         au: '$',
         ca: '$',
     };
-    console.log(currencies[country]);
     return currencies[country];
 }

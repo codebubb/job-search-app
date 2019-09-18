@@ -161,7 +161,6 @@ var getCurrencySymbol = function getCurrencySymbol(country) {
     au: '$',
     ca: '$'
   };
-  console.log(currencies[country]);
   return currencies[country];
 };
 
@@ -187,11 +186,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var JobSearch =
 /*#__PURE__*/
 function () {
-  function JobSearch(searchFormSelector, resultsContainerSelector) {
+  function JobSearch(searchFormSelector, resultsContainerSelector, loadingElementSelector) {
     _classCallCheck(this, JobSearch);
 
     this.searchForm = document.querySelector(searchFormSelector);
     this.resultsContainer = document.querySelector(resultsContainerSelector);
+    this.loadingElement = document.querySelector(loadingElementSelector);
   }
 
   _createClass(JobSearch, [{
@@ -199,14 +199,14 @@ function () {
     value: function setCountryCode() {
       var _this = this;
 
+      this.countryCode = 'gb';
+      this.setCurrencySymbol();
       fetch('http://ip-api.com/json').then(function (results) {
         return results.json();
       }).then(function (results) {
         _this.countryCode = results.countryCode.toLowerCase();
 
         _this.setCurrencySymbol();
-      }).catch(function () {
-        return _this.countryCode = 'us';
       });
     }
   }, {
@@ -222,6 +222,10 @@ function () {
       this.searchForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
+        _this2.startLoading();
+
+        _this2.resultsContainer.innerHTML = '';
+
         var _extractFormData = (0, _utils.extractFormData)(_this2.searchForm),
             search = _extractFormData.search,
             location = _extractFormData.location;
@@ -230,14 +234,28 @@ function () {
           return response.json();
         }).then(function (_ref) {
           var results = _ref.results;
-          console.log(results);
+
+          _this2.stopLoading();
+
           return results.map(function (job) {
             return (0, _templates.jobTemplate)(job, _this2.currencySymbol);
           }).join('');
         }).then(function (jobs) {
           return _this2.resultsContainer.innerHTML = jobs;
+        }).catch(function () {
+          return _this2.stopLoading();
         });
       });
+    }
+  }, {
+    key: "startLoading",
+    value: function startLoading() {
+      this.loadingElement.classList.add('loading');
+    }
+  }, {
+    key: "stopLoading",
+    value: function stopLoading() {
+      this.loadingElement.classList.remove('loading');
     }
   }]);
 
@@ -250,7 +268,7 @@ exports.JobSearch = JobSearch;
 
 var _JobSearch = require("./JobSearch");
 
-var jobSearch = new _JobSearch.JobSearch('#search-form', '.result-container');
+var jobSearch = new _JobSearch.JobSearch('#search-form', '.result-container', '.loading-element');
 jobSearch.setCountryCode();
 jobSearch.configureFormListener();
 },{"./JobSearch":"src/JobSearch.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
